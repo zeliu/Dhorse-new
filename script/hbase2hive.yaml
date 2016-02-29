@@ -1,0 +1,34 @@
+source:
+    - id: 1
+      location:
+         hbase-server:
+           quorum: hosts
+           port: port
+           parent: /hbase-unsecure
+         hbase-conf:
+           table: tablename
+           family: familly
+           columns: clounms
+         type: hbase
+      encode: utf-8
+target:
+   - id: 1
+     location:
+      hdfs:
+        config-resources:
+          -  resource: /software/conf/sre/hadoop_conf/hdfs-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/core-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/mapred-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/yarn-site.xml
+      hive:
+        config-resources:
+          -  resource: /software/conf/sre/hive_conf/hive-site.xml
+      table: message_push_external_list 
+      db: tmp
+      type: hive2
+     encode: utf-8
+output-processor:
+    - id: 1
+      processor:
+         type: replace-delimit
+         field-delimit: \001

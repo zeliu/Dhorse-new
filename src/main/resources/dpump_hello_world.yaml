@@ -1,0 +1,46 @@
+source:
+  - id: 1
+    encode: utf-8
+    location:
+      oracle:
+        host: hosts
+        port: 1521
+        user: dv
+        passwd: password
+        db: dv
+      table: DIM_DAY
+      cols: day,year,week
+      type: oracle
+target:
+  - id: 1
+    encode: utf-8
+    location:
+      file-type: txt
+      write-type: 1
+      codec-class: org.apache.hadoop.io.compress.DefaultCodec
+      compression-type: NONE
+      key-class: org.apache.hadoop.io.Text
+      value-class: org.apache.hadoop.io.Text
+      path: hdfs://dataserv/user/hadoop/test/out.txt
+      hdfs:
+        hadoop-conf:
+          - key: fs.defaultFS
+            value: hdfs://dataserv
+          - key: dfs.nameservices
+            value: dataserv
+          - key: dfs.ha.namenodes.dataserv
+            value: nn1,nn2
+          - key: dfs.namenode.rpc-address.dataserv.nn1
+            value: 192.168.2.44:10920
+          - key: dfs.namenode.rpc-address.dataserv.nn2
+            value: 192.168.2.42:10920
+          - key: ha.zookeeper.quorum
+            value: h161:10218,h162:10218,h163:10218
+          - key: dfs.client.failover.proxy.provider.dataserv
+            value: org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider
+      type: hdfs
+runtime:
+    storage-type: mem
+    input-concurrency: 1
+    output-concurrency: 1
+    monitor-period: 1

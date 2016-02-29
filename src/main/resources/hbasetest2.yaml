@@ -1,0 +1,37 @@
+source:
+  - id: 1
+    encode: utf-8
+    location:
+      oracle:
+        host: 1
+        port: 1521
+        user: usename
+        passwd: password
+        db: dv
+      table: dc.DIM_DAY
+      cols: day,year,week,month,datekey,weekday
+      type: oracle
+    schema:
+      name: output
+      field-delim: \001
+target:
+   - id: 1
+     location:
+        hbase-server:
+          quorum: hostss
+          port: e
+          parent: /hbase-23232
+        hbase-conf:
+          table: dhday
+          family: data
+          columns: datekey,week,weekday
+          rowkey-delim: "-"
+          rowkey-location: 2,4,1
+          value-location: 5,3,6
+        type: hbase
+     encode: utf-8
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: \001

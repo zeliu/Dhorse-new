@@ -1,0 +1,30 @@
+source:
+  - id: 1
+    encode: utf-8
+    location:
+      oracle:
+        host: ip
+        port: 1521
+        user: usenam
+        passwd: password
+        db: db
+      sql: select day,year,week,month,datekey,weekday from db.DIM_DAY
+      type: oracle
+      ServerEncoding: "utf-8"
+target:
+  - id: 1
+    encode: utf-8
+    location:
+      file-type: txt
+      write-type: 1
+      codec-class: org.apache.hadoop.io.compress.DefaultCodec
+      compression-type: NONE
+      key-class: org.apache.hadoop.io.Text
+      value-class: org.apache.hadoop.io.Text
+      path: hdfs://ip/tmp/dimdimday/dt=${time:yyyy-MM-dd,-1d}/${enum:0~4,6}
+      type: hdfs
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: \001

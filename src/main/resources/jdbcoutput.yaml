@@ -1,0 +1,32 @@
+source:
+  - id: 1
+    encode: utf-8
+    location:
+      oracle:
+        host: ip
+        port: 1521
+        user: username
+        passwd: pass
+        db: dv
+      table: dv.DIM_DAY
+      cols: datekey,monthkey,weekday,hweek,pweek,sweek,day,month,year,week,quarter,month
+      type: oracle
+    schema:
+      name: output
+      field-delim: "\001"
+target:
+   - id: 1
+     location:
+        jdbc-server:
+          type: oracle
+          driver: oracle.jdbc.driver.OracleDriver
+          url: jdbc:oracle:thin:@hosts:dv
+          user: usename
+          password: password
+        jdbc-conf:
+          presql: delete from dv.tmp_join_loc
+          updatesql: insert into dv.tmp_join_loc values(date,string,string,string,string,string,int,int,int,int,int,int)
+          field-delim: "\001"
+          batch-size: 500
+        type: jdbc
+     encode: utf-8

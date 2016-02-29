@@ -1,0 +1,18 @@
+source:
+  - id: 1
+    location:
+          sqlserver:
+            host: "343"
+            port: "333"
+            user: "32432"
+            passwd: "67576"
+            db: "dfdd"
+          sql: "select * from 343.343.343"
+          type: sqlserver
+    encode: utf8
+target:
+  - id: 1
+    location:
+        type: file
+        file-path: dpump_test.txt3
+    encode: utf8

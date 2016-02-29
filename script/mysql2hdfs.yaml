@@ -1,0 +1,36 @@
+source:
+  - id: "1"
+    encode: utf-8
+    location:
+      mysql:
+        host: ip
+        port: "port"
+        user: username
+        passwd: password
+        db: db
+      sql: "SELECT
+CURDATE() as op_time,
+111 as execution_id
+FROM city"
+      type: mysql
+target:
+  - id: 1
+    encode: utf-8
+    location:
+      file-type: txt
+      write-type: 1
+      codec-class: org.apache.hadoop.io.compress.DefaultCodec
+      compression-type: NONE
+      key-class: org.apache.hadoop.io.Text
+      value-class: org.apache.hadoop.io.Text
+      path: hdfs://ip/tmp/basedata/city/load_date=11111/${enum:0~4,6}
+      type: hdfs
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: \001      
+runtime:
+    storage-type: mem
+    input-concurrency: 1
+    output-concurrency: 1

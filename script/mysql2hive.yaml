@@ -1,0 +1,33 @@
+source:
+  - id: "1"
+    encode: utf-8
+    location:
+      mysql: {"host":"host","port":"3316","db":"db","user":"username","passwd":"password"}
+      sql: "SELECT
+
+CURDATE() as op_time,
+111 as execution_id
+FROM region"
+      type: mysql
+target:
+   - id: 1
+     location:
+      hdfs:
+        config-resources:
+          -  resource: /software/conf/sre/hadoop_conf/hdfs-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/core-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/mapred-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/yarn-site.xml
+      hive:
+        config-resources:
+          -  resource: /software/conf/sre/hive_conf/hive-site.xml
+      table: region
+      db: tmp
+      partition: load_date=20151101 
+      type: hive2
+     encode: utf-8
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: \001

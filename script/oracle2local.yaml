@@ -1,0 +1,19 @@
+source:
+  - id: 1
+    encode: utf-8
+    location:
+      oracle:
+        host: ip
+        port: 1521
+        user: usename
+        passwd: password
+        db: db
+      table: DIM_DAY
+      cols: day,year,week
+      type: oracle
+target:
+  - id: 1
+    location:
+        type: file
+        file-path: dpump_test.txt2
+    encode: utf8

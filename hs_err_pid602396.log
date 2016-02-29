@@ -1,0 +1,136 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 299136 bytes for Chunk::new
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   In 32 bit mode, the process size limit was hit
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Use 64 bit Java on a 64 bit OS
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:325), pid=602396, tid=602472
+#
+# JRE version: 7.0_02-b13
+# Java VM: Java HotSpot(TM) 64-Bit Server VM (22.0-b10 mixed mode windows-amd64 compressed oops)
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x0000000023c1f000):  JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=602472, stack(0x00000000248c0000,0x00000000249c0000)]
+
+Stack: [0x00000000248c0000,0x00000000249c0000]
+
+Current CompileTask:
+C2:   1437  180             org.apache.maven.model.io.xpp3.MavenXpp3Reader::checkFieldWithDuplicate (75 bytes)
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0000000023c2e000 JavaThread "Service Thread" daemon [_thread_blocked, id=601964, stack(0x00000000249c0000,0x0000000024ac0000)]
+=>0x0000000023c1f000 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=602472, stack(0x00000000248c0000,0x00000000249c0000)]
+  0x0000000023c1d000 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=590312, stack(0x00000000247c0000,0x00000000248c0000)]
+  0x0000000023c1c000 JavaThread "Attach Listener" daemon [_thread_blocked, id=600168, stack(0x00000000246c0000,0x00000000247c0000)]
+  0x0000000023c18800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=600768, stack(0x00000000245c0000,0x00000000246c0000)]
+  0x0000000023b8f000 JavaThread "Finalizer" daemon [_thread_blocked, id=597848, stack(0x00000000244c0000,0x00000000245c0000)]
+  0x0000000023b86000 JavaThread "Reference Handler" daemon [_thread_blocked, id=601352, stack(0x00000000243c0000,0x00000000244c0000)]
+  0x000000000259d000 JavaThread "main" [_thread_in_native, id=603068, stack(0x00000000023e0000,0x00000000024e0000)]
+
+Other Threads:
+  0x0000000023b80800 VMThread [stack: 0x00000000242c0000,0x00000000243c0000] [id=601148]
+  0x0000000023c4c000 WatcherThread [stack: 0x0000000024ac0000,0x0000000024bc0000] [id=600792]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 37888K, used 17754K [0x00000007d5560000, 0x00000007d9f60000, 0x0000000800000000)
+  eden space 32512K, 38% used [0x00000007d5560000,0x00000007d617ab78,0x00000007d7520000)
+  from space 5376K, 99% used [0x00000007d7a60000,0x00000007d7f9bd58,0x00000007d7fa0000)
+  to   space 5376K, 0% used [0x00000007d7520000,0x00000007d7520000,0x00000007d7a60000)
+ PSOldGen        total 86528K, used 2124K [0x0000000780000000, 0x0000000785480000, 0x00000007d5560000)
+  object space 86528K, 2% used [0x0000000780000000,0x00000007802130f0,0x0000000785480000)
+ PSPermGen       total 21248K, used 13818K [0x0000000760000000, 0x00000007614c0000, 0x0000000780000000)
+  object space 21248K, 65% used [0x0000000760000000,0x0000000760d7eac0,0x00000007614c0000)
+
+Code Cache  [0x00000000026a0000, 0x0000000002910000, 0x00000000226a0000)
+ total_blobs=467 nmethods=181 adapters=238 free_code_cache=523427Kb largest_free_block=535956736
+
+Dynamic libraries:
+0x00007ff72ddc0000 - 0x00007ff72ddf3000 	C:\Program Files\Java\jdk1.7.0_02\bin\java.exe
+0x00007ffb60970000 - 0x00007ffb60b19000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ffb5e2d0000 - 0x00007ffb5e409000 	C:\Windows\system32\KERNEL32.DLL
+0x00007ffb5ddc0000 - 0x00007ffb5dece000 	C:\Windows\system32\KERNELBASE.dll
+0x00007ffb5c930000 - 0x00007ffb5c9bb000 	C:\Windows\system32\apphelp.dll
+0x00007ffb53030000 - 0x00007ffb5307c000 	C:\Windows\AppPatch\AppPatch64\AcGenral.DLL
+0x00007ffb5e790000 - 0x00007ffb5e837000 	C:\Windows\system32\msvcrt.dll
+0x00007ffb5dad0000 - 0x00007ffb5dafb000 	C:\Windows\SYSTEM32\SspiCli.dll
+0x00007ffb5ece0000 - 0x00007ffb5ed31000 	C:\Windows\system32\SHLWAPI.dll
+0x00007ffb5e610000 - 0x00007ffb5e781000 	C:\Windows\system32\USER32.dll
+0x00007ffb5e840000 - 0x00007ffb5e9b6000 	C:\Windows\system32\ole32.dll
+0x00007ffb5f0a0000 - 0x00007ffb604af000 	C:\Windows\system32\SHELL32.dll
+0x00007ffb5d2c0000 - 0x00007ffb5d2df000 	C:\Windows\SYSTEM32\USERENV.dll
+0x00007ffb5e220000 - 0x00007ffb5e2c5000 	C:\Windows\system32\ADVAPI32.dll
+0x00007ffb57410000 - 0x00007ffb5742b000 	C:\Windows\SYSTEM32\MPR.dll
+0x00007ffb5e4d0000 - 0x00007ffb5e606000 	C:\Windows\system32\RPCRT4.dll
+0x00007ffb5e410000 - 0x00007ffb5e467000 	C:\Windows\SYSTEM32\sechost.dll
+0x00007ffb5ee80000 - 0x00007ffb5f057000 	C:\Windows\SYSTEM32\combase.dll
+0x00007ffb60570000 - 0x00007ffb606b5000 	C:\Windows\system32\GDI32.dll
+0x00007ffb5dcf0000 - 0x00007ffb5dd04000 	C:\Windows\SYSTEM32\profapi.dll
+0x00007ffb5c190000 - 0x00007ffb5c231000 	C:\Windows\SYSTEM32\SHCORE.dll
+0x00007ffb5f060000 - 0x00007ffb5f094000 	C:\Windows\system32\IMM32.DLL
+0x00007ffb5e9c0000 - 0x00007ffb5eaf8000 	C:\Windows\system32\MSCTF.dll
+0x00007ffb5b870000 - 0x00007ffb5baca000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.9600.16384_none_62475f7becb72503\COMCTL32.dll
+0x000000005afa0000 - 0x000000005b071000 	C:\Program Files\Java\jdk1.7.0_02\jre\bin\msvcr100.dll
+0x000000005a8c0000 - 0x000000005af9a000 	C:\Program Files\Java\jdk1.7.0_02\jre\bin\server\jvm.dll
+0x00007ffb5b190000 - 0x00007ffb5b199000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ffb5b290000 - 0x00007ffb5b2af000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ffb60560000 - 0x00007ffb60567000 	C:\Windows\system32\PSAPI.DLL
+0x00007ffb5e470000 - 0x00007ffb5e4c8000 	C:\Windows\system32\WS2_32.dll
+0x00007ffb5a9b0000 - 0x00007ffb5a9da000 	C:\Windows\SYSTEM32\WINMMBASE.dll
+0x00007ffb5ee70000 - 0x00007ffb5ee79000 	C:\Windows\system32\NSI.dll
+0x00007ffb5df20000 - 0x00007ffb5df6a000 	C:\Windows\SYSTEM32\cfgmgr32.dll
+0x00007ffb5cb80000 - 0x00007ffb5cba6000 	C:\Windows\SYSTEM32\DEVOBJ.dll
+0x000000005cac0000 - 0x000000005cacf000 	C:\Program Files\Java\jdk1.7.0_02\jre\bin\verify.dll
+0x000000005c820000 - 0x000000005c848000 	C:\Program Files\Java\jdk1.7.0_02\jre\bin\java.dll
+0x000000005c800000 - 0x000000005c815000 	C:\Program Files\Java\jdk1.7.0_02\jre\bin\zip.dll
+0x000000005c7e0000 - 0x000000005c7f9000 	C:\Program Files\Java\jdk1.7.0_02\jre\bin\net.dll
+0x00007ffb5d510000 - 0x00007ffb5d568000 	C:\Windows\system32\mswsock.dll
+0x000000005a8a0000 - 0x000000005a8b1000 	C:\Program Files\Java\jdk1.7.0_02\jre\bin\nio.dll
+
+VM Arguments:
+jvm_args: -Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m -Dclassworlds.conf=D:\apache-maven-3.2.3\bin\..\bin\m2.conf -Dmaven.home=D:\apache-maven-3.2.3\bin\.. 
+java_command: org.codehaus.plexus.classworlds.launcher.Launcher install
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\Java\jdk1.7.0_02
+PATH=C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Program Files (x86)\scala\bin;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files\TortoiseSVN\bin;D:\apache-maven-3.2.3\bin;C:\Program Files (x86)\scala\\bin;C:\Program Files (x86)\sbt\\bin;D:\apache-maven-3.2.3\bin;C:\Python27;C:\Python27\Scripts
+USERNAME=Administrator
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 60 Stepping 3, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows NT 6.2 Build 9200 
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 60 stepping 3, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt
+
+Memory: 4k page, physical 8305428k(1226572k free), swap 33471252k(5336k free)
+
+vm_info: Java HotSpot(TM) 64-Bit Server VM (22.0-b10) for windows-amd64 JRE (1.7.0_02-b13), built on Nov 17 2011 13:51:15 by "java_re" with unknown MS VC++:1600
+
+time: Tue Nov 03 08:41:21 2015
+elapsed time: 1 seconds
+

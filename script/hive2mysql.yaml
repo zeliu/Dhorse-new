@@ -1,0 +1,39 @@
+source:
+  - id: "1"
+    encode: utf-8
+    location:
+      hdfs:
+        config-resources:
+          -  resource: /software/conf/sre/hadoop_conf/hdfs-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/core-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/yarn-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/mapred-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/fair-scheduler.xml
+          -  resource: /software/conf/sre/hadoop_conf/tez-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/capacity-scheduler.xml
+      hive:
+        config-resources:
+          -  resource: /software/conf/sre/hive_conf/hive-site.xml
+      hql: select trans_dt from app.tablename where dt = '2015-11-23';
+      type: hive2
+target:
+   - id: 1
+     location:
+        jdbc-server:
+          type: mysql
+          driver: com.mysql.jdbc.Driver
+          url: jdbc:mysql://ip/db
+          user: usename
+          password: password
+        jdbc-conf:
+          presql: delete from db.tablename where datekey = '2015-11-23'
+          updatesql: insert into db.tablename (trans_dt) values(date)
+          field-delim: "\001"
+          batch-size: 1000
+        type: jdbc
+     encode: utf-8
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: "\001"

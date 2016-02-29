@@ -1,0 +1,51 @@
+source:
+  - id: "1"
+    encode: utf-8
+    location:
+      hdfs:
+        config-resources:
+          -  resource: /software/conf/sre/hadoop_conf/hdfs-site.xml
+      hive:
+        config-resources:
+          -  resource: /software/conf/sre/hive_conf/hive-site.xml
+      hql: select datekey,day,monthkey,month,year,week,weekday,quarter,hweek,pweek,sweek,mweek,tweek,fweek,xw_week,wweek,theweek,qweek,firstdayofweek,firstdayofmonth from ffan.dim_day
+      type: hive2
+target:
+   - id: 1
+     location:
+      hdfs:
+        config-resources:
+          -  resource: /software/conf/sre/hadoop_conf/hdfs-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/core-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/mapred-site.xml
+          -  resource: /software/conf/sre/hadoop_conf/yarn-site.xml
+        hadoop_conf:
+          -  key: fs.defaultFS
+             value: hdfs://db
+          -  key: dfs.nameservices
+             value: db
+          -  key: dfs.ha.namenodes.db
+             value: nn1,nn2
+          -  key: dfs.namenode.rpc-address.db.nn1
+             value: nn1
+          -  key: dfs.namenode.rpc-address.db.nn2
+             value: nn2
+          -  key: dfs.namenode.http-address.db.nn1
+             value: nn1
+          -  key: dfs.namenode.http-address.db.nn1
+             value: nn2
+          -  key: dfs.client.failover.proxy.provider.db
+             value: org.apache.hadoop.hdfs.server.namenode.ha.ConfiguredFailoverProxyProvider
+      hive:
+        config-resources:
+          -  resource: /software/conf/sre/hive_conf/hive-site.xml
+      table: tmp_dim_day
+      db: ffan
+      codec-class: org.apache.hadoop.io.compress.DefaultCodec
+      type: hive2
+     encode: utf-8
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: \001

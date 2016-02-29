@@ -1,0 +1,32 @@
+source:
+  - id: 1
+    encode: utf-8
+    location:
+      file-type: txt
+      write-type: 1
+      codec-class: org.apache.hadoop.io.compress.DefaultCodec
+      compression-type: NONE
+      key-class: org.apache.hadoop.io.Text
+      value-class: org.apache.hadoop.io.Text
+      path: hdfs://ip/user/hive/warehouse/t.db/app_terminal_loc/thisdate=20151115/
+      type: hdfs
+    schema:
+      name: output
+      field-delim: \001
+target:
+   - id: 1
+     location:
+        jdbc-server: {"host":"hosts","port":"port","db":"db","user":"usename","passwd":"password"}
+        jdbc-conf:
+          presql: delete from db.tmp_join_loc
+          updatesql: insert into db.tmp_join_loc values(date,string,string,string,string,string,int,int,int,int,int,int)
+          field-delim: "\001"
+          batch-size: 1000
+        db-type: mysql
+        type: jdbc
+     encode: utf-8
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: "\001"

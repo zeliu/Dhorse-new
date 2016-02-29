@@ -1,0 +1,33 @@
+source:
+  - id: "1"
+    encode: utf-8
+    location:
+      hdfs:
+        config-resources:
+          -  resource: /software/conf/sre/hadoop_conf/hdfs-site.xml
+      hive:
+        config-resources:
+          -  resource: /software/conf/sre/hive_conf/hive-site.xml
+      hql: select datekey,day,monthkey,month,year,week,weekday,quarter,hweek,pweek,sweek,mweek,tweek,fweek,xw_week,wweek,theweek,qweek from ffan.dim_day
+      type: hive2
+target:
+   - id: 1
+     location:
+        hbase-server:
+          quorum: hosts
+          port: 2180
+          parent: /hbase-parent
+        hbase-conf:
+          table: dhday
+          family: data
+          columns: datekey,week,weekday
+          rowkey-delim: "-"
+          rowkey-location: 2,4,1
+          value-location: 5,3,6
+        type: hbase
+     encode: utf-8
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: \001

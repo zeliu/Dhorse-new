@@ -1,0 +1,39 @@
+source:
+  - id: "1"
+    encode: "utf-8"
+    location:
+      oracle:
+        host: hostss
+        port: 1521
+        user: dv
+        passwd: pass
+        db: 23232
+      sql: "SELECT
+                   '2015-10-31' as op_time,
+                   16632 as execution_id
+            FROM dws.dagag
+           where load_date >= to_date('2015-10-30', 'YYYY-MM-DD')
+           "
+      type: oracle
+      ServerEncoding: "utf-8"
+target:
+  - id: 1
+    encode: utf-8
+    location:
+      file-type: txt
+      write-type: 1
+      codec-class: org.apache.hadoop.io.compress.DefaultCodec
+      compression-type: NONE
+      key-class: org.apache.hadoop.io.Text
+      value-class: org.apache.hadoop.io.Text
+      path: hdfs://ip/user/sre/dws/dv/load_date=20151031/${enum:0~4,6}
+      type: hdfs
+output-processor:
+   - id: 1
+     processor:
+        type: replace-delimit
+        field-delimit: \001
+runtime:
+    storage-type: mem
+    input-concurrency: 1
+    output-concurrency: 1
